@@ -1,0 +1,17 @@
+{
+    "contents" : "library\n\ndb<-read.csv(\"/Users/nicholaswaters/Documents/GU_R/biomaRT/CAdb.csv\")\nfor (i in row.names(db)){\n  if (length(grep(pattern = \"orf19.*\", x = db[i,], ignore.case = TRUE, perl = TRUE, value = TRUE))==1){\n    db$orf19a<-grep(pattern = \"orf19.*\", x = row, ignore.case = TRUE, perl = TRUE, value = TRUE)\n  }\n  else{\n    print(\"error: you've been duped by duplicates!\")}\n}\n",
+    "created" : 1424880288455.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1381244169",
+    "id" : "A123599E",
+    "lastKnownWriteTime" : 1424920093,
+    "path" : "~/GitHub/R/biomaRT/db_can.R",
+    "project_path" : "db_can.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

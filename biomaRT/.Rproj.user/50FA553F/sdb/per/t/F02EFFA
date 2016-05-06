@@ -1,0 +1,17 @@
+{
+    "contents" : "library(biomaRt)\nlibrary(GOstats)\nlibrary(topGO)\n\n\nlistMarts()\nensembl = useMart(\"fungi_mart_25\")#, dataset=\"fungi_Mart_25\")\ndata<-listDatasets(ensembl)\nfilt<-listFilters(ensembl)\nattr<-listAttributes(ensembl)\nquery=\"CDC19\"\ntestlst<-c(\"CDC15\", \"CDC16\", \"CDC17\", \"CDC18\", \"CDC19\")\nfilter<-\"go_id\"\nfilter2<-\"wikigene_name\"\nb<-getBM(attributes=c(\"entrezgene\", \"go_id\", \"name_1006\"), filters=filter2, values=lst, mart=ensembl)\ne<-getBM(attributes=c(\"entrezgene\", \"description\"), filters=filter2, values=query, mart=ensembl)\ntestgo<-getBM(attributes=c(filter2, \"go_id\"), filters=filter2, values=testlst, mart=ensembl)\ngeneToGo<-getBM(attributes=c(\"wikigene_name\", \"go_id\"), filters=\"with_go_go\", values=TRUE, mart=ensembl)\n\n####Format Gene to Go list!\ngene.to.GO <- split(geneToGo$go_id, geneToGo$wikigene_name)\ngeneToGO <- lapply(gene.to.GO, unique)  # to remove duplicates\n\nwrite.csv(geneToGO, file = \"sacc_list.csv\", na=\"NA\")\n\n#####################\n\nlst<-read.csv(\"/Users/nicholaswaters/Documents/GU_R/biomaRT/testGoGene.csv\")\ngo<-lst$GO.ID\npval<-lst$p.value\ngen<-lst$List.of.Genes\nfilter2<-\"wikigene_name\"\nlizGenes<-\n  \n  g<-getBM(attributes=\"entrezgene\", filters=filter2, values=gen, mart=ensembl)\n\n##   Look it F$!@ing works!!!!!!\nGOdata <- new(\"topGOdata\", ontology = \"MF\", allGenes = testList, annot = annFUN.gene2GO, gene2GO = geneToGO)\n\n\n##but this doesnt work\ntgd<-new(\"topGOdata\", ontology=\"CC\", allGenes=geneList, nodeSize=1, description = \"Ensembl GO enrichment\", \n         annot = annFUN.gene2GO, gene2GO =testgo)\n######################\n\nresultFisher <- runTest(GOdata, algorithm = \"classic\", statistic = \"fisher\")\n\n",
+    "created" : 1424367669338.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2841355221",
+    "id" : "F02EFFA",
+    "lastKnownWriteTime" : 1424384515,
+    "path" : "~/GitHub/R/biomaRT/giftData.R",
+    "project_path" : "giftData.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
